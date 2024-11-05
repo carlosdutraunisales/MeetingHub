@@ -6,11 +6,11 @@ services:
     container_name: API
     ports:
       - "5029:8080"
-      - "5030:8081"      # Mapeia a porta 5000 do host para a porta 80 do container
+      - "5030:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - mongo  # Garante que o MongoDB esteja em execução antes da API
+      - mongo
   
   mongo:
     image: mongo:latest
