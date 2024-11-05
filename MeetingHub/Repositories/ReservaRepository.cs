@@ -60,7 +60,7 @@ public class ReservaRepository : IReservaRepository
     public async Task<Reserva> BuscarReservaPorSalaEData(ObjectId salaId, DateTime data)
     {
         var inicioDoDia = data.Date;
-        var fimDoDia = data.Date.AddDays(1).AddTicks(-1); // Último instante do mesmo dia
+        var fimDoDia = data.Date.AddDays(1).AddTicks(-1); 
 
         return await _reservas.Find(r => r.SalaId == salaId && r.DataInicio >= inicioDoDia && r.DataInicio <= fimDoDia).FirstOrDefaultAsync();
     }

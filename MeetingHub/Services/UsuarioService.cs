@@ -17,12 +17,6 @@ public class UsuarioService : IUsuarioService
 
     public async Task<Usuario> CriarUsuarioAsync(Usuario usuario)
     {
-        //var usuarioExistente = await _usuarioRepository.ObterUsuarioPorEmailAsync(usuario.Email);
-        //if (usuarioExistente != null)
-        //{
-        //    throw new Exception("O e-mail já está em uso.");
-        //}
-        
         return await _usuarioRepository.CriarUsuarioAsync(usuario);
     }
 

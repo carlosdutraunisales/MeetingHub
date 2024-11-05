@@ -67,12 +67,6 @@ public class ReservaService : IReservaService
         return await _reservaRepository.ObterReservaPorIdAsync(usuarioId);
     }
 
-    public async Task<List<Reserva>> BuscarSalasDisponiveisAsync(DateTime dataInicio, DateTime dataFim, int capacidade, List<string> recursos)
-    {
-        // Implementação de filtro com base no `_salaService` para buscar salas que atendam aos requisitos.
-        // ...
-        throw new NotImplementedException();
-    }
 
     public async Task<List<Reserva>> ObterTodasReservas()
     {

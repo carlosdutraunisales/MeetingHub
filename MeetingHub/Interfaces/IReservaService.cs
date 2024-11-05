@@ -10,7 +10,6 @@ public interface IReservaService
     Task<ResultadoOperacao> AtualizarReservaAsync(ObjectId id, ObjectId userId, Reserva reserva);
     Task<List<Reserva>> ObterReservasPorUsuarioAsync(ObjectId usuarioId);
     Task<Reserva> ObterReservaPorIdAsync(ObjectId usuarioId);
-    Task<List<Reserva>> BuscarSalasDisponiveisAsync(DateTime dataInicio, DateTime dataFim, int capacidade,List<string> recursos);
     Task<List<Reserva>> ObterTodasReservas();
     Task<List<Reserva>> ObterReservasPorUserId(ObjectId userId);
     Task<ResultadoOperacao> CancelarReservaAsync (ObjectId reservaId, ObjectId userId);

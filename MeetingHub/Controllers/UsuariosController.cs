@@ -92,23 +92,4 @@ public class UsuariosController: ControllerBase
         return loggedUser.Success ? Ok(new { Email = loggedUser.Message }) : Unauthorized(loggedUser.Message);
 
     }
-
-    /*[HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
-    {
-        // Hash da senha antes de salvar (exemplo simplificado)
-        var senhaHash = BCrypt.Net.BCrypt.HashPassword(model.senha);
-
-        var usuario = new Usuario
-        {
-            Nome = model.Nome,
-            Email = model.email,
-            SenhaHash = senhaHash,
-            NivelAcesso = model.nivelAcesso
-        };
-
-        await _usuarioRepository.CriarUsuarioAsync(usuario);
-        return Ok("Usuário Registrado com sucesso.");
-    }*/
-
 }
