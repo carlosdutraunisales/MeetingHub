@@ -34,10 +34,15 @@ public class ReservaService : IReservaService
         return await _reservaRepository.CriarReservaAsync(reserva);
     }
 
-    public async Task<Reserva?> AtualizarReservaAsync(ObjectId id, Reserva reserva)
+    public async Task<ResultadoOperacao> AtualizarReservaAsync(ObjectId id, ObjectId userId, Reserva reserva)
     {
         var reservaExistente = await _reservaRepository.ObterReservaPorIdAsync(id);
-        if (reservaExistente == null) return null;
+        if (reservaExistente == null) return new ResultadoOperacao(false, "Reserva não encontrada.");
+
+        if (reservaExistente.UsuarioId != userId)
+        {
+            return new ResultadoOperacao(false, "Você não tem permissão para cancelar esta reserva.");
+        }
 
         var conflitos = await _reservaRepository.ObterReservasPorSalaAsync(reserva.SalaId, reserva.DataInicio, reserva.DataFim);
         if (conflitos.Any(r => r.Id != id))
@@ -47,13 +52,10 @@ public class ReservaService : IReservaService
 
         reserva.Id = id;
         await _reservaRepository.AtualizarReservaAsync(id, reserva);
-        return reserva;
+        return new ResultadoOperacao(true, "Reserva atualizada com sucesso!");
     }
 
-    public async Task<bool> CancelarReservaAsync(ObjectId id)
-    {
-        return await _reservaRepository.CancelarReservaAsync(id);
-    }
+   
 
     public async Task<List<Reserva>> ObterReservasPorUsuarioAsync(ObjectId usuarioId)
     {
@@ -74,20 +76,15 @@ public class ReservaService : IReservaService
 
     public async Task<List<Reserva>> ObterTodasReservas()
     {
-        var x = await _reservaRepository.ObterTodasResevasAsync();
-        
-        return x;
+        return await _reservaRepository.ObterTodasResevasAsync();
     }
-
-   
 
     public async  Task<List<Reserva>> ObterReservasPorUserId(ObjectId userId)
     {
         return await _reservaRepository.ObterReservasPorUsuarioAsync(userId);
     }
-
  
-    public async Task<ResultadoOperacao> CancelarReserva(ObjectId reservaId, ObjectId userId)
+    public async Task<ResultadoOperacao> CancelarReservaAsync(ObjectId reservaId, ObjectId userId)
     {
         var reserva = await _reservaRepository.ObterReservaPorIdAsync(reservaId);
         if (reserva == null) return new ResultadoOperacao(false, "Reserva não encontrada.");
@@ -100,4 +97,6 @@ public class ReservaService : IReservaService
         await _reservaRepository.CancelarReservaAsync(reservaId);
         return new ResultadoOperacao(true);
     }
+
+  
 }

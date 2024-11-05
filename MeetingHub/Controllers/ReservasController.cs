@@ -57,7 +57,8 @@ public class ReservasController : ControllerBase
             return sala != null && sala.Ativa == "I" ? BadRequest(new { message = "Sala indisponível para reservas" }) : NotFound(new { message = "Sala não encontrada" });
         }
     }
-
+    
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<IActionResult> ObterReservaPorId(ObjectId id)
     {
@@ -65,24 +66,65 @@ public class ReservasController : ControllerBase
         return reserva == null ? NotFound() : Ok(reserva);
     }
 
-    //[HttpPut("{id}")]
-    //public async Task<IActionResult> AtualizarReserva(ObjectId id, [FromBody] Reserva reserva)
-    //{
-    //    var reservaAtualizada = await _reservaService.AtualizarReservaAsync(id, reserva);
-    //    return reservaAtualizada == null ? NotFound() : Ok(reservaAtualizada);
-    //}
-
+    [Authorize]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> AtualizarReserva(ObjectId id, [FromBody] CriarReservaViewModel model)
+    {
+        var usuario = await _usuarioRepository.ObterUsuarioPorEmailAsync(_usuarioRepository.UserAuth(User).Message);
+        var reserva = await _reservaService.ObterReservaPorIdAsync(id);
+        if (reserva == null)
+        {
+            return BadRequest(new { message = "Reserva não encontrada" });
+        }
+        else
+        {
+            var sala = await _salaRepository.ObterSalaPorCodigoAsync(model.SalaCodigo);
+            if (sala != null && sala.Ativa == "A")
+            {
+                reserva.SalaId = sala.Id;
+                reserva.DataInicio = model.DataInicio;
+                reserva.DataFim = model.DataFim;
+                try
+                {
+                    var reservaAtualizada = await _reservaService.AtualizarReservaAsync(id, usuario.Id, reserva);
+                    return reservaAtualizada == null ? NotFound() : Ok(reservaAtualizada.Mensagem);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+            }
+            else
+            {
+                return sala != null && sala.Ativa == "I" ? BadRequest(new { message = "Sala indisponível para reservas" }) : NotFound(new { message = "Sala não encontrada" });
+            }
+        }
+        
+    }
+    
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> CancelarReserva(ObjectId id)
     {
-        var sucesso = await _reservaService.CancelarReservaAsync(id);
-        return sucesso ? NoContent() : NotFound();
+        var usuario = await _usuarioRepository.ObterUsuarioPorEmailAsync(_usuarioRepository.UserAuth(User).Message);
+        var resultado = await _reservaService.CancelarReservaAsync(id, usuario.Id);
+        return resultado.Sucesso ? NoContent() : NotFound(resultado.Mensagem);
     }
-
+    
+    [Authorize]
     [HttpGet("todas")]
-    public async Task<IActionResult> GetAllReservas()
+    public async Task<IActionResult> ObterTodasReservas()
     {
         var reservas = await _reservaService.ObterTodasReservas();
+        return Ok(reservas);
+    }
+
+    [Authorize]
+    [HttpGet("proprias")]
+    public async Task<IActionResult> ObterReservasUsuario()
+    {
+        var usuario = await _usuarioRepository.ObterUsuarioPorEmailAsync(_usuarioRepository.UserAuth(User).Message);
+        var reservas = await _reservaService.ObterReservasPorUsuarioAsync(usuario.Id);
         return Ok(reservas);
     }
 

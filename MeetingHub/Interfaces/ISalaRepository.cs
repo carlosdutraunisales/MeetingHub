@@ -10,6 +10,8 @@ public interface ISalaRepository
     Task CriarSalaAsync(Sala sala);
     Task AtualizarSalaAsync(ObjectId salaId, Sala sala);
     Task ExcluirSalaAsync(ObjectId salaId);
-    
     Task<Sala> ObterSalaPorCodigoAsync(int codigo);
+    Task<List<Sala>> BuscarSalasAtivas(int? capacidade, List<string> recursos);
+    
+
 }

@@ -72,4 +72,21 @@ public class SalaController: ControllerBase
             return NotFound("Sala não encontrada.");
         }
     }
+
+    [Authorize(Roles = "Administrador,Usuario")]
+    [HttpGet("disponiveis")]
+    public async Task<IActionResult> GetSalasDisponiveis(DateTime data, int? capacidade = null, List<string> recursos = null)
+    {
+        try
+        {
+            var salasDisponiveis = await _salaService.BuscarSalasDisponiveis(data, capacidade, recursos);
+            return Ok(salasDisponiveis);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Erro interno: {ex.Message}");
+        }
+    }
+
+
 }

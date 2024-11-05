@@ -40,4 +40,26 @@ public class SalaRepository : ISalaRepository
     {
         return await _salasCollection.Find(s => s.Codigo == codigo).FirstOrDefaultAsync();
     }
+
+    public async Task<List<Sala>> BuscarSalasAtivas(int? capacidade, List<string> recursos)
+    {
+        var filtro = Builders<Sala>.Filter.Eq(s => s.Ativa, "A");
+
+        if (capacidade.HasValue)
+        {
+            filtro &= Builders<Sala>.Filter.Gte(s => s.Capacidade, capacidade.Value);
+        }
+
+        if (recursos != null && recursos.Any())
+        {
+            foreach (var recurso in recursos)
+            {
+                filtro &= Builders<Sala>.Filter.AnyEq(s => s.Recursos, recurso);
+            }
+        }
+
+        return await _salasCollection.Find(filtro).ToListAsync();
+    }
+
+   
 }
