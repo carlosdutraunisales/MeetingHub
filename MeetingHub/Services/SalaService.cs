@@ -39,17 +39,20 @@ public class SalaService
     public async Task ExcluirSalaAsync(ObjectId salaId) => await _salaRepository.ExcluirSalaAsync(salaId);
 
 
-    public async Task<List<Sala>> BuscarSalasDisponiveis(DateTime data, int? capacidade, List<string> recursos)
+    public virtual async Task<List<Sala>> BuscarSalasDisponiveis(DateTime data, int? capacidade, List<string> recursos)
     {
         var salas = await _salaRepository.BuscarSalasAtivas(capacidade, recursos);
 
         var salasDisponiveis = new List<Sala>();
-        foreach (var sala in salas)
+        if (salasDisponiveis.Any())
         {
-            var reservaExistente = await _reservaRepository.BuscarReservaPorSalaEData(sala.Id, data);
-            if (reservaExistente == null)
+            foreach (var sala in salas)
             {
-                salasDisponiveis.Add(sala);
+                var reservaExistente = await _reservaRepository.BuscarReservaPorSalaEData(sala.Id, data);
+                if (reservaExistente == null)
+                {
+                    salasDisponiveis.Add(sala);
+                }
             }
         }
         return salasDisponiveis;

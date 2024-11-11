@@ -28,7 +28,6 @@ public class ReservasController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CriarReserva([FromBody] CriarReservaViewModel model)
     {
-
         var usuario = await _usuarioRepository.ObterUsuarioPorEmailAsync(_usuarioRepository.UserAuth(User).Message);
         var sala = await _salaRepository.ObterSalaPorCodigoAsync(model.SalaCodigo);
         
@@ -124,8 +123,12 @@ public class ReservasController : ControllerBase
     public async Task<IActionResult> ObterReservasUsuario()
     {
         var usuario = await _usuarioRepository.ObterUsuarioPorEmailAsync(_usuarioRepository.UserAuth(User).Message);
-        var reservas = await _reservaService.ObterReservasPorUsuarioAsync(usuario.Id);
-        return Ok(reservas);
+        if (usuario != null)
+        {
+            var reservas = await _reservaService.ObterReservasPorUsuarioAsync(usuario.Id);
+            return Ok(reservas);
+        }
+        return NotFound();
     }
 
 }
