@@ -17,7 +17,7 @@ namespace MeetingHub.Teste.Controllers
         private readonly Mock<ISalaRepository> _salaRepositoryMock;
         private readonly Mock<IReservaService> _reservaServiceMock;
         private readonly ReservasController _controller;
-
+          
         public ReservaControllerTests()
         {
             _usuarioRepositoryMock = new Mock<IUsuarioRepository>();
@@ -75,7 +75,7 @@ namespace MeetingHub.Teste.Controllers
             var usuario = new Usuario { Id = ObjectId.GenerateNewId(), Email = "usuario@exemplo.com" };
             var salaInativa = new Sala { Id = ObjectId.GenerateNewId(), Codigo = 1, Ativa = "I" }; // Sala inativa
 
-            // Configuração dos mocks
+          
             _usuarioRepositoryMock.Setup(r => r.ObterUsuarioPorEmailAsync(It.IsAny<string>())).ReturnsAsync(usuario);
             _usuarioRepositoryMock.Setup(r => r.UserAuth(It.IsAny<ClaimsPrincipal>()))
                                   .Returns(new AuthResponse { Message = usuario.Email });

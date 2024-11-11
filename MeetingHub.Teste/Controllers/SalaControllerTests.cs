@@ -92,7 +92,7 @@ namespace MeetingHub.Tests
             // Arrange
             var sala = new Sala { Nome = "Nova Sala" };
 
-            // Configurando o mock para a criação de uma nova sala
+            
             _mockSalaRepository.Setup(repo => repo.CriarSalaAsync(It.IsAny<Sala>())).Returns(Task.CompletedTask);
 
             // Act
