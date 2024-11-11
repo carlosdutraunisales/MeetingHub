@@ -8,13 +8,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{FDA24BCF-872A-426B-8BC2-BDDEAFB32ED3}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		Read.me = Read.me
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.0 - Teste", "2.0 - Teste", "{FD411AEA-C291-439A-B199-FDA39A3F258E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0 - Aplicacao", "1.0 - Aplicacao", "{6016EA5A-572F-45F6-BCDB-9B3F545F0FD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetingHub.Teste", "MeetingHub.Teste\MeetingHub.Teste.csproj", "{A96ACBA0-BA1C-4B01-9001-C28091719C8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetingHub.Teste", "MeetingHub.Teste\MeetingHub.Teste.csproj", "{A96ACBA0-BA1C-4B01-9001-C28091719C8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
