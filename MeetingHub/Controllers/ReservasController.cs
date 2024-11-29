@@ -24,7 +24,7 @@ public class ReservasController : ControllerBase
         _salaRepository = salaRepository;
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpPost]
     public async Task<IActionResult> CriarReserva([FromBody] CriarReservaViewModel model)
     {
@@ -56,8 +56,8 @@ public class ReservasController : ControllerBase
             return sala != null && sala.Ativa == "I" ? BadRequest(new { message = "Sala indisponível para reservas" }) : NotFound(new { message = "Sala não encontrada" });
         }
     }
-    
-    [Authorize]
+
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpGet("{id}")]
     public async Task<IActionResult> ObterReservaPorId(ObjectId id)
     {
@@ -65,7 +65,7 @@ public class ReservasController : ControllerBase
         return reserva == null ? NotFound() : Ok(reserva);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpPut("{id}")]
     public async Task<IActionResult> AtualizarReserva(ObjectId id, [FromBody] CriarReservaViewModel model)
     {
@@ -100,8 +100,8 @@ public class ReservasController : ControllerBase
         }
         
     }
-    
-    [Authorize]
+
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> CancelarReserva(ObjectId id)
     {
@@ -109,8 +109,8 @@ public class ReservasController : ControllerBase
         var resultado = await _reservaService.CancelarReservaAsync(id, usuario.Id);
         return resultado.Sucesso ? NoContent() : NotFound(resultado.Mensagem);
     }
-    
-    [Authorize]
+
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpGet("todas")]
     public async Task<IActionResult> ObterTodasReservas()
     {
@@ -118,7 +118,7 @@ public class ReservasController : ControllerBase
         return Ok(reservas);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Administrador,Usuario")]
     [HttpGet("proprias")]
     public async Task<IActionResult> ObterReservasUsuario()
     {
