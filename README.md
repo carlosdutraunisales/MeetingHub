@@ -39,8 +39,8 @@ Este projeto é uma API para gerenciamento de reservas de salas de reunião, desen
 4. **Acessar o Mongo-Express:**
 
     O Mongo-Express estará acessível na URL `http://localhost:8081` usando as credenciais:
-    - Usuário: admin
-    - Senha: pass
+    - Usuário: **admin**
+    - Senha: **pass**
 
 ## Estrutura do Projeto
 
@@ -52,30 +52,30 @@ Este projeto é uma API para gerenciamento de reservas de salas de reunião, desen
 
 ## Endpoints da API
 
-- GET **/api/salas**: Retorna todas as salas de reunião.
-- GET /api/salas/{id}: Retorna uma salas de reunião específica.
-- GET /api/salas/disponiveis: Retorna as salas de reunião 
+- **GET /api/salas**: Retorna todas as salas de reunião.
+- **GET /api/salas/{id}**: Retorna uma salas de reunião específica.
+- **GET /api/salas/disponiveis**: Retorna as salas de reunião 
       disponiveis em determinada data/horario, precisa passar 
       pelo body a data, a capacida e uma lista de recursos.
-- POST /api/salas: Cria uma nova sala de reunião.
-- PUT /api/salas/{id}: Atualiza uma salas de reunião específica.
-- DELETE /api/salas/{id}: Exclui uma salas de reunião específica.
+- **POST /api/salas**: Cria uma nova sala de reunião.
+- **PUT /api/salas/{id}**: Atualiza uma salas de reunião específica.
+- **DELETE /api/salas/{id}**: Exclui uma salas de reunião específica.
 
-- GET /api/usuarios: Retorna todas as salas de reunião.
-- POST /api/usuarios: Cria uma nova sala de reunião.
-- GET /api/usuarios/{id}: Retorna todas as salas de reunião.
-- GET /api/usuarios/{email}: Retorna todas as salas de reunião.
-- PUT /api/usuarios/{id}: Atualiza uma salas de reunião específica.
-- DELETE /api/usuarios/{id}: Exclui uma salas de reunião específica.
-- POST /api/usuairos/login: Cria uma nova sala de reunião.
-- GET /api/usuarios/me: Retorna todas as salas de reunião.
+- **GET /api/usuarios**: Retorna todas as salas de reunião.
+- **POST /api/usuarios**: Cria uma nova sala de reunião.
+- **GET /api/usuarios/{id}**: Retorna todas as salas de reunião.
+- **GET /api/usuarios/{email}**: Retorna todas as salas de reunião.
+- **PUT /api/usuarios/{id}**: Atualiza uma salas de reunião específica.
+- **DELETE /api/usuarios/{id}**: Exclui uma salas de reunião específica.
+- **POST /api/usuairos/login**: Cria uma nova sala de reunião.
+- **GET /api/usuarios/me**: Retorna todas as salas de reunião.
 
-- POST /api/reservas: Cria uma nova reserva.
-- GET /api/reservas/{id}: Retorna uma reserva em especifico.
-- PUT /api/reservas/{id}: Atualiza uma reserva existente.
-- DELETE /api/reservas/{id}: Exclui uma reserva.
-- GET /api/reservas/todas: Retorna todas as reservas.
-- GET /api/reservas/proprias: Retorna todas as reservas do usuário logado.
+- **POST /api/reservas**: Cria uma nova reserva.
+- **GET /api/reservas/{id}**: Retorna uma reserva em especifico.
+- **PUT /api/reservas/{id}**: Atualiza uma reserva existente.
+- **DELETE /api/reservas/{id}**: Exclui uma reserva.
+- **GET /api/reservas/todas**: Retorna todas as reservas.
+- **GET /api/reservas/proprias**: Retorna todas as reservas do usuário logado.
 
 ## Executando Testes
 
